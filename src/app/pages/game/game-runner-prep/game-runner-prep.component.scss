@@ -1,0 +1,29 @@
+@import "../../../../assets/style/selectors";
+
+.logo {
+  @extend %horizontal-logo;
+
+  img {
+    content: url("~/../../../assets/images/Vertical_white.svg");
+  }
+}
+
+.prep-screen-content {
+  background: linear-gradient(316.29deg, #5942a9 0%, rgba(74, 171, 81, 0.6) 100%);
+  font-family: 'Ubuntu', sans-serif;
+  color: var(--ion-color-light);
+}
+
+p {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 29px;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 2em;
+}

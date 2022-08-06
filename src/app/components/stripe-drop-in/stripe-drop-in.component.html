@@ -1,0 +1,23 @@
+<form method="post" id="payment-form" class="primary-form">
+  <ion-list margin-left margin-right [attr.margin-top]="''">
+    <!-- Stripe Drop-in UI -->
+    <div class="form-row">
+      <div id="card-element">
+        <!-- a Stripe Element will be inserted here. -->
+      </div>
+
+      <!-- Used to display Element errors -->
+      <div id="card-errors" class="form-control-error" role="alert"></div>
+    </div>
+  </ion-list>
+
+  <!-- Submit payment information -->
+  <ion-button
+    color="secondary"
+    expand="block"
+    type="submit"
+    [disabled]="isSubmitting">
+    {{buttonText}}
+    <ion-spinner *ngIf="isSubmitting" name="lines-small" color="light" class="ion-margin-start"></ion-spinner>
+  </ion-button>
+</form>

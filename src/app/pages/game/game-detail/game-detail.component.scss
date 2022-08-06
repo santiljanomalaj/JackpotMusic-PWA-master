@@ -1,0 +1,79 @@
+.game-date-info {
+  margin: 18px;
+
+  h3,
+  p,
+  .icon {
+    padding: 0;
+    margin: 0;
+  }
+
+  h3,
+  .icon {
+    color: var(--ion-color-light);
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  p {
+    padding: 6px 0;
+    color: var(--ion-color-gray);
+    font-size: 16px;
+  }
+}
+
+.scheduled-games-container {
+  padding: 12px 24px;
+  background: radial-gradient(circle, rgba(#827d90, 0.5) 0%, rgba(#444, 0.5) 100%);
+
+  .category-and-round-info {
+    .icons {
+      color: #4aab51;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .round-title {
+      color: #999;
+    }
+
+    p,
+    h3,
+    .icon {
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+    }
+  }
+}
+
+.game-timer {
+  margin: 18px;
+}
+
+.buttons {
+  padding: 18px;
+  text-align: center;
+
+  .terms-and-age-info {
+    p {
+      color: #ddd;
+      font-size: 16px;
+      line-height: 22px;
+      margin: 0 24px;
+
+      .terms-link {
+        font-weight: bold;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.directions {
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(#fff, 0.8);
+  margin: 24px;
+}

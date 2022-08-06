@@ -1,0 +1,98 @@
+<ion-header class="active-game-header">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="light" (click)="goToRulesPage()">
+        Rules
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Jackpot Music Game
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="light" (click)="quitGame(game._id)">
+        Quit
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="game-content">
+
+  <div class="round-info">
+    <ion-grid>
+      <ion-row *ngIf="game?.isTest">
+        <ion-col>
+          <h3 class="test-game">Test Game</h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h3>
+            <ion-icon class="icons" name="play"></ion-icon>
+            {{gameService.prettyRoundName(currentRound.name)}}
+          </h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h3>
+            <ion-icon class="icons" name="musical-notes"></ion-icon>
+            {{game?.category}}
+          </h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h3>
+            <ion-icon class="icons" name="trophy"></ion-icon>
+            {{game?.roundData[currentRound.name]?.prize}} coupon
+          </h3>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <h3>
+            <ion-icon class="icons" name="people"></ion-icon>
+            {{currentRound.playerCount || 0}} Players
+          </h3>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div class="song-info-container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="audio-controls">
+            <audio #songAudio controls>
+              <source src="assets/audio/louder_files/a_if_you_can_hear_this.mp3" type="audio/mpeg">
+              <ion-row>
+                <ion-col>
+                  Your browser does not support the audio element.
+                </ion-col>
+              </ion-row>
+            </audio>
+          </div>
+          <p class="song-count">Song {{currentSongNumber}} of
+            {{game?.roundData[currentRound.name]?.master.length}}</p>
+          <h3>{{currentSongTitle}}</h3>
+          <p>{{currentSongArtist}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <audio #soundClipAudio>
+    <source src="assets/audio/louder_files/a_if_you_can_hear_this.mp3" type="audio/mpeg">
+    <ion-row>
+      <ion-col>
+        Your browser does not support the audio element.
+      </ion-col>
+    </ion-row>
+  </audio>
+
+  <div class="equalizer">
+    <div></div>
+  </div>
+</ion-content>

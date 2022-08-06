@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Update Email</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" novalidate *ngIf="authService.currentUser" class="primary-form">
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label position="stacked">Email Address</ion-label>
+        <ion-input formControlName="email" type="text" placeholder="Enter your email" required></ion-input>
+      </ion-item>
+      <control-errors [control]="form.controls['email']"></control-errors>
+
+      <div class="ion-padding">
+        <ion-button mode="ios" expand="block" color="secondary" (click)="submit()" [disabled]="isSubmitting">
+          Save Changes
+          <ion-spinner *ngIf="isSubmitting" name="ios-small" color="light" class="ion-margin-start"></ion-spinner>
+        </ion-button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

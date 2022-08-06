@@ -1,0 +1,60 @@
+// Input styling
+ion-select,
+ion-datetime,
+.native-input {
+  text-indent: 0;
+  padding: 15px !important;
+  font-size: 1rem !important;
+  border: 1px solid var(--ion-color-gray) !important;
+}
+
+label,
+.label-stacked {
+  font-weight: bold;
+  padding-bottom: 1.5em !important;
+  color: var(--ion-color-gray) !important;
+}
+
+.label-stacked {
+  font-size: 1.4rem !important;
+
+  &.ios {
+    font-size: 15px !important;
+    margin-top: 1.2em !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+label {
+  position: relative;
+  display: inline-block;
+}
+
+.activated,
+.item-has-focus {
+  --highlight-background: rgb(var(--ion-color-light-rgb), 0);
+}
+
+.ion-invalid {
+  --highlight-color-invalid: rgb(var(--ion-color-light-rgb), 0);
+}
+
+.action-sheet-button {
+  span {
+    color: var(--ion-color-secondary);
+  }
+}
+
+.alert-title {
+  color: var(--ion-color-secondary) !important;
+}
+
+.alert-input-wrapper {
+  input {
+    color: var(--ion-color-secondary) !important;
+  }
+}
+
+.sc-ion-picker-md-h {
+  --background: var(--ion-color-dark);
+}

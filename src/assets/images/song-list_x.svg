@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>song-list_x</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Fields/Song-list---Not-Playing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-9.000000, -9.000000)">
+        <g id="song-list_x" transform="translate(9.000000, 9.000000)" stroke="#E01075">
+            <circle id="Oval-Copy" cx="17" cy="17" r="16.5"></circle>
+            <path d="M11,23.3636364 L23.3636364,11" id="Check"></path>
+            <path d="M11,23.3636364 L23.3636364,11" id="Check" transform="translate(17.181818, 17.181818) scale(-1, 1) translate(-17.181818, -17.181818) "></path>
+        </g>
+    </g>
+</svg>

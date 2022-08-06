@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Payment Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="page-header">
+    <h2>Your Payment Method</h2>
+    <p>
+      You won't be billed unless you run a game. Each game is
+      {{settings[settingTypes.PRICE_PER_GAME] | currency:'USD':'symbol':'1.0'}} plus
+      {{settings[settingTypes.PRICE_PER_USER] | currency:'USD':'symbol':'1.0'}} per participant.
+      Have questions? Email us at
+      <a href="mailto:{{constants.SUPPORT_EMAIL}}">{{constants.SUPPORT_EMAIL}}</a>
+    </p>
+  </div>
+
+  <ng-container *ngIf="!changeCreditCard && authService.currentUser && authService.currentUser.stripeLast4">
+    <h3>Current Payment Method</h3>
+    <div class="current-payment-method">
+      <p>
+        <ion-icon name="card"></ion-icon>
+        <i>Ends In:</i> {{authService.currentUser.stripeLast4}}
+        <i>Expires:</i> {{authService.currentUser.stripeExpMonth}}/{{authService.currentUser.stripeExpYear}}
+      </p>
+    </div>
+
+    <p class="change-credit-card">
+      <a (click)="changeCreditCard=true">Change Credit Card?</a>
+    </p>
+  </ng-container>
+
+  <ng-container *ngIf="changeCreditCard || (authService.currentUser && !authService.currentUser.stripeLast4)">
+    <h3>New Payment Method</h3>
+    <!-- Stripe Drop-in UI -->
+    <!-- Change based on if the user has payment already setup -->
+    <stripe-drop-in-payment id="stripe-el" [submitFunction]="submit" [buttonText]="'Save'">
+    </stripe-drop-in-payment>
+  </ng-container>
+
+</ion-content>

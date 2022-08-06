@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Game Detail
+    </ion-title>
+    <ion-buttons slot="end" *ngIf="userIsGameRunner && gameService.userHasAccessToGame(authService.currentUser, game)">
+      <ion-button routerLink="/game/edit">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid class="game-date-info">
+    <ion-row *ngIf="game?.isTest">
+      <ion-col>
+        <h3 class="test-game">TEST GAME</h3>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="1">
+        <ion-icon name="pin"></ion-icon>
+      </ion-col>
+      <ion-col size="11">
+        <h3 class="ion-text-left">{{game?._location?.name}}</h3>
+        <p class="ion-text-left">{{game?._location?.location.formatted_address}}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="1">
+        <ion-icon name="calendar"></ion-icon>
+      </ion-col>
+      <ion-col size="11">
+        <h3 class="ion-text-left">{{game?.startTime | amCalendar}}</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="scheduled-games-container">
+    <ion-grid class="category-and-round-info">
+
+      <ion-row>
+        <ion-col size="1">
+          <ion-icon name="musical-notes" class="icons"></ion-icon>
+        </ion-col>
+        <ion-col class="category" size="11">
+          <h3>{{game?.category}}</h3>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="round-prize">
+        <ion-col size="1">
+          <ion-icon name="trophy" class="icons"></ion-icon>
+        </ion-col>
+        <ion-col size="3">
+          <p class="round-title">Round 1</p>
+        </ion-col>
+        <ion-col size="8">
+          <p class="prize-text">{{game?.roundData.roundOne.prize}} coupon</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="round-prize">
+        <ion-col size="3" offset="1">
+          <p class="round-title">Round 2</p>
+        </ion-col>
+        <ion-col size="8">
+          <p class="prize-text">{{game?.roundData.roundTwo.prize}} coupon</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="round-prize">
+        <ion-col size="3" offset="1">
+          <p class="round-title">Round 3</p>
+        </ion-col>
+        <ion-col size="8">
+          <p class="prize-text">{{game?.roundData.roundThree.prize}} coupon</p>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </div>
+
+  <div class="game-timer">
+    <game-timer [startTime]="game?.startTime"></game-timer>
+  </div>
+
+  <div *ngIf="isCloseToStartTimeForGame(game)" class="buttons">
+    <!-- Game Runner -->
+    <div *ngIf="userIsGameRunner">
+      <ion-button *ngIf="isCloseToStartTimeForGame(game, 15)" expand="block" color="primary" class="ion-margin-bottom"
+        (click)="startGameEarly()">
+        Start Game Now
+      </ion-button>
+      <ion-button expand="block" color="secondary" (click)="testSound()">
+        Test Sound
+      </ion-button>
+      <p *ngIf="!lobbyMusicLoaded">Loading lobby music...</p>
+      <ion-button expand="block" color="secondary" *ngIf="lobbyMusicLoaded && !lobbyMusicAudio.playing()"
+        (click)="lobbyMusicAudio.play()">
+        Play Lobby Music
+      </ion-button>
+      <ion-button expand="block" color="secondary" *ngIf="lobbyMusicLoaded && lobbyMusicAudio.playing()"
+        (click)="lobbyMusicAudio.pause()">
+        Pause Lobby Music
+      </ion-button>
+    </div>
+
+    <!-- Game Participants -->
+    <div *ngIf="!userIsGameRunner">
+      <ion-button expand="block" color="secondary" (click)="goToCard()">
+        Enter Game
+      </ion-button>
+
+      <div class="terms-and-age-info">
+        <p>By entering the game you agree to the <span routerLink="/user/terms-conditions" class="terms-link">terms and
+            conditions</span>.
+          You must be 18 years or older to win the Jackpot.</p>
+      </div>
+    </div>
+  </div>
+
+  <p *ngIf="!isCloseToStartTimeForGame(game)" class="directions">Return to this page 60 minutes before start time at the
+    location above to participate!</p>
+</ion-content>

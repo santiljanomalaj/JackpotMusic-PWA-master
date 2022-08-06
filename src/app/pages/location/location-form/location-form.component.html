@@ -1,0 +1,47 @@
+<form novalidate [formGroup]="form" (ngSubmit)="submit()" class="primary-form">
+  <ion-list lines="none">
+    <ion-item>
+      <ion-label position="stacked">Location Name</ion-label>
+      <ion-input formControlName="name" type="text" placeholder="Location Name"></ion-input>
+    </ion-item>
+    <p class="help-block" *ngIf="!form.controls['name'].valid && submitAttempt">Required</p>
+
+    <!-- Google Maps autocomplete -->
+    <ion-item *ngIf="!newLocation && !location">
+      <ion-label>
+        <label>Address</label>
+        <autocomplete (select)="locationSelected($event)"></autocomplete>
+      </ion-label>
+    </ion-item>
+    <p class="help-block" *ngIf="submitAttempt && !location && !newLocation">Required</p>
+
+    <ion-item *ngIf="newLocation">
+      <ion-label>
+        <label>Address</label>
+        <p class="location-address">{{newLocation.formatted_address}}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="!newLocation && location">
+      <ion-label>
+        <label>Address</label>
+        <p class="location-address">{{location.location?.formatted_address}}</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <p class="change-address">
+          <a *ngIf="newLocation || location" (click)="changeLocation()">Change Address</a>
+        </p>
+      </ion-label>
+    </ion-item>
+
+    <div class="ion-padding">
+      <ion-button mode="ios" expand="block" type="submit" color="secondary" [disabled]="submitted">
+        Submit
+        <ion-spinner *ngIf="submitted" name="lines-small" color="light" class="ion-margin-start"></ion-spinner>
+      </ion-button>
+    </div>
+  </ion-list>
+</form>

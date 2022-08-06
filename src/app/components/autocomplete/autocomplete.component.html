@@ -1,0 +1,13 @@
+<ion-searchbar
+  color="dark"
+  (ionFocus)="focus = true"
+  (ionBlur)="focus = false"
+  placeholder="Search for your location"
+  [(ngModel)]="autocomplete.query"
+  (ionInput)="updateSearch()"
+>
+</ion-searchbar>
+
+<ion-item color="dark" *ngFor="let item of autocompleteItems" (click)="chooseItem(item)" class="location-result">
+  <p>{{item.description}}</p>
+</ion-item>

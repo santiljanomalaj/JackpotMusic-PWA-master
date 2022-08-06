@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="light" (click)="goToRulesPage()">
+        Rules
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title *ngIf="gameHasStarted()">
+      {{pageTitle}}
+    </ion-title>
+
+    <ion-title *ngIf="!gameHasStarted()">
+      Jackpot Music Game
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="light" (click)="quitRound()">
+        Quit
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="card-content" scrollEvents={true} (ionScroll)="this.showFooter==='active' && scrollHandler($event)">
+  <!-- Not An Active Game -->
+  <!-- If the game has not stareted show a loading view -->
+  <ng-container *ngIf="!gameHasStarted() || isWaitingForRoundTwo() || isWaitingForRoundThree()">
+    <div class="scheduled-games-container">
+      <ion-grid class="category-and-round-info">
+        <ion-row *ngIf="game.isTest">
+          <ion-col>
+            <h3 class="test-game">Test Game</h3>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="musical-notes" class="icons"></ion-icon>
+          </ion-col>
+          <ion-col class="category" size="11">
+            <h3>{{game.category}}</h3>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="1">
+            <ion-icon name="people" class="icons"></ion-icon>&nbsp;
+          </ion-col>
+          <ion-col class="category" size="11">
+            <h3>{{currentRound.playerCount}} players</h3>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="round-prize">
+          <ion-col size="1">
+            <ion-icon name="trophy" class="icons"></ion-icon>
+          </ion-col>
+          <ion-col size="3">
+            <p class="round-title">Round 1</p>
+          </ion-col>
+          <ion-col size="8">
+            <p class="prize-text">{{game.roundData.roundOne.prize}} coupon</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="round-prize">
+          <ion-col size="3" offset="1">
+            <p class="round-title">Round 2</p>
+          </ion-col>
+          <ion-col size="8">
+            <p class="prize-text">{{game.roundData.roundTwo.prize}} coupon</p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="round-prize">
+          <ion-col size="3" offset="1">
+            <p class="round-title">Round 3</p>
+          </ion-col>
+          <ion-col size="8">
+            <p class="prize-text">{{game.roundData.roundThree.prize}} coupon</p>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </div>
+
+    <div *ngIf="!isGameStartTimeInPast(game)" class="game-timer">
+      <game-timer [startTime]="game.startTime"></game-timer>
+      <p class="directions">
+        The game's about to start! Wait here until the game host starts the game. This page will
+        automatically update when the
+        game starts.
+      </p>
+    </div>
+
+    <div *ngIf="isGameStartTimeInPast(game) && !isWaitingForRoundTwo() && !isWaitingForRoundThree()"
+      class="waiting-text">
+      <img src="assets/images/Vertical_white.svg" alt="Jackpot Music Game Logo" />
+      <p>Waiting for the host to start the game. The game will begin shortly!</p>
+      <ion-spinner name="ios"></ion-spinner>
+    </div>
+
+    <div *ngIf="isWaitingForRoundTwo() || isWaitingForRoundThree()" class="waiting-text">
+      <img src="assets/images/Vertical_white.svg" alt="Jackpot Music Game Logo" />
+      <p>Waiting for the host to start the next round. Hang tight!</p>
+      <ion-spinner name="ios"></ion-spinner>
+    </div>
+
+  </ng-container>
+
+  <!-- Active Game -->
+  <!-- If the game has started show the player card -->
+  <ng-container *ngIf="playerCard && gameHasStarted() && !isWaitingForRoundTwo() && !isWaitingForRoundThree()">
+    <div class="instructions">
+      <ion-icon (click)="getSongInfo()" class="info-icon" name="ios-information-circle-outline"></ion-icon>
+      <div class="content">
+        <!-- Change header text if this is round three for the jackpot instructions -->
+        <span *ngIf="!isRoundThree()">
+          <h3>{{gameService.prettyRoundName(currentRound.name)}}</h3>
+          <p>If the song currently playing is on your list, mark it by tapping below!</p>
+        </span>
+
+        <!-- Change header text if this is round three for the jackpot instructions -->
+        <span *ngIf="isRoundThree()">
+          <h3>📣&nbsp;Jackpot Round&nbsp;📣</h3>
+          <p>Get {{jackpotRequiredSongCount}} songs within the first {{jackpotThreshold}}
+            songs played to win the {{jackpotMoneyTotal | currency:'USD':true:'1.0'}} jackpot!</p>
+          <h3 *ngIf="currentSongNumber() <= jackpotThreshold">{{currentSongNumber()}} of {{jackpotThreshold}}</h3>
+          <h3 *ngIf="currentSongNumber() > jackpotThreshold">You didn't win the jackpot&nbsp;😢</h3>
+        </span>
+      </div>
+    </div>
+
+    <ion-grid fixed class="song-list">
+      <ion-row class="ion-justify-content-center">
+        <button *ngFor="let song of playerCard[currentRound.name]" class="song-item" (click)="songIsClicked(song)"
+          [@isClicked]="song.localStatus" [disabled]="song.isDisabled || song.isLoading">
+          <div class="checkbox">
+            <img [ngClass]="setCheckboxImage(song)">
+          </div>
+          <div class="song-info">
+            <h3>{{song._song.title}}</h3>
+            <p>{{song._song.artist}}</p>
+          </div>
+          <ion-spinner *ngIf="song.isLoading" name="ios-small" color="white"></ion-spinner>
+        </button>
+      </ion-row>
+    </ion-grid>
+  </ng-container>
+</ion-content>
+
+<!-- Footer -->
+<div style="background-color: black;" [@showFooter]="showFooter">
+  <div>
+    <ion-footer *ngIf="gameHasStarted()" class="animated">
+      <ion-toolbar>
+        <ion-title>
+          <ion-icon name="arrow-down"></ion-icon>
+          More Songs
+          <ion-icon name="arrow-down"></ion-icon>
+        </ion-title>
+      </ion-toolbar>
+    </ion-footer>
+  </div>
+</div>

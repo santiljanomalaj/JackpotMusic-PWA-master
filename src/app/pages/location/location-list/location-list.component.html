@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="light" (click)="goToRulesPage()">
+        Rules
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="light" (click)="goToSignupPage()">
+        Host a Game
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="location-schedule">
+  <ion-refresher slot="fixed" [pullMax]="61" (ionRefresh)="refreshList($event)">
+    <ion-refresher-content refreshing-spinner="lines"></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="logo">
+    <img src="" alt="Jackpot Music Game Logo" />
+  </div>
+
+  <div class="jackpot-info">
+    <ion-label>
+      <h1>{{settings[settingTypes.JACKPOT_AMOUNT] | currency:'USD':'symbol':'1.0'}}</h1>
+      <p>Current Jackpot for next 3 rounds</p>
+    </ion-label>
+  </div>
+
+  <ion-list class="ion-padding" lines="none">
+    <ion-item-divider class="game-list-header">
+      <ion-label>Games Near You</ion-label>
+    </ion-item-divider>
+
+    <ion-item class="game-cell" *ngFor="let location of locationService.locations">
+      <ion-label class="ion-text-wrap">
+        <ion-grid>
+          <!-- Join Game Hero -->
+          <ion-row *ngIf="shouldShowJoinGameHero(location.games[0])">
+            <ion-col>
+              <div class="join-game-hero">
+                <h2>
+                  Game {{isGamePast(location.games[0]) ? 'started' : 'starting'}}
+                  {{getStartTime(location.games[0])| amTimeAgo}}!
+                </h2>
+                <ion-button class="primary-button" (click)="goToGameDetailPage(location.games[0], location, $event)">
+                  Join Game
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="1">
+              <ion-icon name="pin"></ion-icon>
+            </ion-col>
+            <ion-col size="11">
+              <h2 class="text-truncate">{{location.name}}</h2>
+              <p class="text-truncate">{{location.location?.formatted_address}}</p>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngIf="location.games.length">
+            <ion-col size="1">
+              <ion-icon name="calendar"></ion-icon>
+            </ion-col>
+            <ion-col size="11">
+              <p class="game-times text-truncate">
+                <span *ngFor="let game of location.games; let last = last">
+                  {{game.category}} {{game.startTime | amTimeAgo}}<span *ngIf="!last">,</span>
+                </span>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
+
+    <!-- Loading indicator -->
+    <ion-item *ngIf="isLoading || isRefreshing" class="game-cell loading-item">
+      <ion-label class="ion-text-center">
+        <ion-spinner name="lines"></ion-spinner>
+      </ion-label>
+    </ion-item>
+
+    <!-- Empty state -->
+    <ion-item class="game-cell empty-state"
+      *ngIf="!isLoading && !isRefreshing && (!locationService.locations || !locationService.locations.length)">
+      <ion-label class="ion-text-center">No games scheduled near you!</ion-label>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="findAll($event)" *ngIf="canLoadMore && !isRefreshing">
+    <ion-infinite-scroll-content loadingSpinner="ios">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

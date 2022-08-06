@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="34px" height="34px" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>song-list_check</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Fields/Song-list-checked" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-9.000000, -9.000000)">
+        <g id="song-list_check" transform="translate(9.000000, 9.000000)">
+            <circle id="Background" fill="#5942A9" cx="17" cy="17" r="17"></circle>
+            <polyline id="Check" stroke="#FFFFFF" points="8.72727273 17.7727273 14.1363636 23.1818182 26.5 10.8181818"></polyline>
+        </g>
+    </g>
+</svg>

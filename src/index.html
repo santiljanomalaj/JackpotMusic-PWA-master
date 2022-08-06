@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8"/>
+  <title>Jackpot Music Game</title>
+
+  <meta name="Description" content="Jackpot Music Game">
+
+  <base href="/"/>
+
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="msapplication-tap-highlight" content="no"/>
+
+  <link rel="icon" type="image/x-icon" href="assets/icon/favicon.ico"/>
+  <link rel="icon" sizes="192x192" href="assets/icon/icon_192.png"/>
+  <link rel="apple-touch-icon" href="assets/icon/icon_192.png"/>
+  <meta name="msapplication-square310x310logo" content="assets/icon/icon_512.png"/>
+
+  <link rel="manifest" href="manifest.webmanifest"/>
+  <meta name="theme-color" content="#4e8ef7"/>
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#1976d2">
+</head>
+
+<body>
+  <app-root></app-root>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+
+  <!-- Stripe -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <!-- Google Maps script -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLoTwm91EVWlIY1yMAfFmLQVQeUB7espA&amp;libraries=places"></script>
+
+  <script>
+      window.addEventListener('beforeinstallprompt', (event) => {
+          event.prompt();
+      });
+  </script>
+</body>
+
+</html>

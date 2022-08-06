@@ -1,0 +1,29 @@
+.terms-and-conditions-content {
+  font-family: "Ubuntu", sans-serif;
+  color: var(--ion-color-light);
+
+  .underline {
+    text-decoration: underline;
+  }
+}
+
+.terms-and-conditions {
+  margin-top: 2em;
+}
+
+.how-to-play {
+  height: 275px;
+  background:
+    #000 linear-gradient(
+      316.29deg,
+      #5942a9 0%,
+      rgba(74, 171, 81, 0.6) 100%
+    );
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 29px;
+  margin-bottom: 15px;
+}

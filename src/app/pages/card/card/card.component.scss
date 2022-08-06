@@ -1,0 +1,222 @@
+.card-content {
+  background-color: #242527;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.song-item {
+  background: linear-gradient(180deg, rgba(#111, 0) 0%, #111 100%);
+  max-width: 450px;
+  border-radius: 6px;
+  border: solid 1px #444;
+  margin: 0 8px 10px;
+  text-align: left;
+  width: 100%;
+  display: flex;
+
+  .song-info {
+    margin-right: auto;
+  }
+
+  ion-spinner {
+    height: 65px;
+    width: 65px;
+  }
+
+  .checkbox {
+    margin: 16px;
+  }
+
+  h3 {
+    padding: 0;
+    margin: 14px 0 4px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  p {
+    padding: 0;
+    margin: 0 0 14px;
+    font-size: 14px;
+  }
+}
+
+.song-item:last-of-type {
+  margin-bottom: 50px;
+}
+
+.waiting-text {
+  text-align: center;
+  margin: 45px;
+
+  p {
+    color: var(--ion-color-light);
+    font-size: 21px;
+    line-height: 29px;
+    margin: 35px 0;
+  }
+
+  ion-spinner {
+    height: 35px;
+    width: 35px;
+  }
+}
+
+.instructions {
+  width: 100%;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.8) 100%), linear-gradient(134.39deg, #5942a9 0%, rgba(74, 171, 81, 0.6) 100%);
+  box-shadow: inset 0 -1px 0 0 #424245;
+  padding-top: 18px;
+
+  .info-icon {
+    color: var(--ion-color-primary);
+    height: 38px;
+    width: 36px;
+    font-weight: bold;
+    font-size: 3em;
+    position: absolute;
+    top: 7px;
+    right: 20px;
+  }
+
+  .content {
+    // background: url('/assets/images/Equalizer-graphic-01.gif') no-repeat center !important; // App task 5 - Getting rid of moving bars
+    background-size: cover !important;
+    min-height: 97px;
+    margin: 0 42px;
+    padding: 5px;  // App task 5 - Reducing vertical space
+
+    h3 {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      padding: 0;
+      margin: 0;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 21px;
+      text-align: center;
+      padding: 0;
+      margin: 4px 0;
+    }
+  }
+}
+
+.round-info {
+  color: var(--ion-color-light);
+  font-size: 15px;
+  margin-top: 28px;
+
+  .icons {
+    color: var(--ion-color-primary);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  .category {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 22px;
+  }
+}
+
+.default {
+  content: url('/assets/images/song-list_empty.svg') !important;
+}
+
+.correct {
+  content: url('/assets/images/song-list_check.svg') !important;
+}
+
+.incorrect {
+  content: url('/assets/images/song-list_x.svg') !important;
+}
+
+.song-list {
+  margin-top: 6px;
+}
+
+.song-title:last-child {
+  margin-bottom: 20px;
+}
+
+.scheduled-games-container {
+  padding: 12px 24px;
+  background: radial-gradient(circle, rgba(#827d90, 0.5) 0%, rgba(#444, 0.5) 100%);
+
+  .category-and-round-info {
+    .icons {
+      color: var(--ion-color-primary);
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .round-title {
+      color: #999;
+    }
+
+    p,
+    h3,
+    .icon {
+      padding: 0;
+      margin: 0;
+      font-size: 18px;
+    }
+  }
+}
+
+.game-timer {
+  margin: 18px;
+}
+
+.directions {
+  text-align: center;
+  font-size: 16px;
+  line-height: 21px;
+  color: rgba(#fff, 0.7);
+  margin: 24px 0;
+}
+
+@media only screen and (min-width: 1440px) {
+  .instructions {
+    .content {
+      margin: 0 auto !important;
+      max-width: 64%;
+    }
+  }
+}
+
+.footer {
+  .toolbar-title {
+    color: #ccc;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  &.animated {
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+
+  @-webkit-keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  &.fadeOut {
+    background: var(--ion-color-danger) !important;
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut;
+  }
+}

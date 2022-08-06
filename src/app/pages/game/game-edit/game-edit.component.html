@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Edit Scheduled Game
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="submit()">
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="form" novalidate class="primary-form">
+          <ion-list lines="none">
+            <ion-item class="form-group">
+              <ion-label position="stacked">Date</ion-label>
+              <ion-datetime displayFormat="DD MMM YYYY" formControlName="date" placeholder="Date" required></ion-datetime>
+            </ion-item>
+            <control-errors [control]="form.controls.date"></control-errors>
+
+            <ion-item class="form-group">
+              <ion-label position="stacked">Time</ion-label>
+              <ion-datetime displayFormat="hh:mm A" formControlName="time" placeholder="Time" pickerFormat="hh:mm A" required></ion-datetime>
+            </ion-item>
+            <control-errors [control]="form.controls.time"></control-errors>
+
+            <ion-item class="form-group">
+              <ion-label position="stacked">Category</ion-label>
+              <ion-select type="text"
+                          formControlName="category"
+                          interface="action-sheet"
+                          [interfaceOptions]="selectOptions"
+                          required
+              >
+                <ion-select-option
+                  *ngFor="let category of categories | async"
+                  [value]="category"
+                >
+                  {{category}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <control-errors [control]="form.controls.category"></control-errors>
+
+            <ion-item class="form-group">
+              <ion-label position="stacked">Round 1 Prize</ion-label>
+              <ion-input type="text"
+                         formControlName="roundOnePrize"
+                         required></ion-input>
+            </ion-item>
+            <control-errors [control]="form.controls.roundOnePrize"></control-errors>
+
+            <ion-item class="form-group">
+              <ion-label position="stacked">Round 2 Prize</ion-label>
+              <ion-input type="text"
+                         formControlName="roundTwoPrize"
+                         required></ion-input>
+            </ion-item>
+            <control-errors [control]="form.controls.roundTwoPrize"></control-errors>
+
+            <ion-item class="form-group">
+              <ion-label position="stacked">Round 3 Prize</ion-label>
+              <ion-input type="text"
+                         formControlName="roundThreePrize"
+                         required></ion-input>
+            </ion-item>
+            <control-errors [control]="form.controls.roundThreePrize"></control-errors>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+
+    <div class="ion-padding">
+      <ion-button expand="block" color="secondary" (click)="deleteGame(game)">
+        Delete Game
+      </ion-button>
+    </div>
+  </ion-grid>
+</ion-content>

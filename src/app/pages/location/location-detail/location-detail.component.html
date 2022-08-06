@@ -1,0 +1,161 @@
+<!-- Header for non-authenticated users -->
+<ion-header *ngIf="!authService.currentUser">
+  <ion-toolbar mode="ios">
+    <ion-title>
+      Jackpot Music Game
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Header for authenticated users -->
+<ion-header *ngIf="authService.currentUser">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-button fill="clear" color="light" (click)="goToTermsAndConditionsPage()">
+        Rules
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-button mode="ios" shape="round" size="small" fill="outline" color="light" (click)="goToNewGamePage()">
+        Schedule Games
+      </ion-button>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="light" (click)="gotoAccountPage()">
+        Account
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Start of content -->
+<ion-content class="location-schedule">
+  <ng-container *ngIf="locationService.location && locationService.location.location">
+    <ion-refresher slot="fixed" [pullMax]="61" (ionRefresh)="findOne($event)">
+      <ion-refresher-content refreshingSpinner="lines"></ion-refresher-content>
+    </ion-refresher>
+
+    <div class="location-header">
+      <div class="logo">
+        <img src="" alt="Jackpot Music Game Logo" />
+      </div>
+
+      <div class="location-info">
+        <h1>{{locationService.location.name}}</h1>
+        <p>{{locationService.location.location.formatted_address}}</p>
+      </div>
+    </div>
+
+    <ion-list lines="none">
+
+      <!-- Upcoming Games -->
+      <div class="game-list">
+        <ion-item-divider class="game-list-header">
+          <ion-label>Upcoming Games</ion-label>
+        </ion-item-divider>
+
+        <ion-item class="game-cell" *ngFor="let game of upcomingGamesForLocation(locationService.location)"
+          (click)="goToGameDetailPage(game, locationService.location)">
+          <ion-label>
+            <ion-grid>
+              <!-- Join Game Hero -->
+              <ion-row *ngIf="shouldShowJoinGameHero(game)">
+                <ion-col>
+                  <div class="join-game-hero">
+                    <h2>
+                      Game {{isGamePast(game) ? 'started' : 'starting'}} {{getStartTime(game) | amTimeAgo}}!
+                    </h2>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size="1">
+                  <div>
+                    <ion-icon name="calendar"></ion-icon>
+                  </div>
+                </ion-col>
+                <ion-col size="11">
+                  <div>
+                    <h2 class="text-truncate ion-text-left">
+                      <strong *ngIf="game.isTest" class="test-game">TEST</strong>
+                      {{game.startTime | amLocal | amDateFormat: 'ddd, MMMM Do'}}: {{game.category}}
+                    </h2>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="1">
+                  <ion-icon name="clock"></ion-icon>
+                </ion-col>
+                <ion-col size="11">
+                  <p class="game-times text-truncate ion-text-left">
+                    {{game.startTime | amLocal | amDateFormat: 'h:mm A'}}
+                  </p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+
+        <!-- Empty state for upcoming games -->
+        <ion-item class="game-cell empty-state"
+          *ngIf="!isLoading && !upcomingGamesForLocation(locationService.location).length">
+          <ion-label>
+            <p>No games scheduled!</p>
+            <p class="ion-margin-top">
+              <a routerLink="/game/new">Schedule a game</a>
+            </p>
+          </ion-label>
+        </ion-item>
+      </div>
+
+      <!-- Past Games -->
+      <div class="game-list">
+        <ion-item-divider class="game-list-header past-games"
+          *ngIf="sortByDateDesc(pastGamesForLocation(locationService.location)).length">
+          <ion-label>Past Games</ion-label>
+        </ion-item-divider>
+
+        <ion-item class="game-cell past-game"
+          *ngFor="let game of sortByDateDesc(pastGamesForLocation(locationService.location))">
+          <ion-label class="ion-text-left">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="1">
+                  <ion-icon name="calendar"></ion-icon>
+                </ion-col>
+                <ion-col size="11">
+                  <h2 class="text-truncate">{{game.startTime | amLocal | amDateFormat: 'ddd, MMMM Do h:mm A'}}
+                    : {{game.category}}</h2>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="isTerminated(game)">
+                <ion-col size="1">
+                  <ion-icon name="close"></ion-icon>
+                </ion-col>
+                <ion-col size="11">
+                  <p class="game-times text-truncate">Terminated: {{game.terminatedAt | amLocal | amCalendar}}</p>
+                </ion-col>
+              </ion-row>
+              <ion-row *ngIf="game.paymentAt">
+                <ion-col size="1">
+                  <ion-icon name="card"></ion-icon>
+                </ion-col>
+                <ion-col size="11">
+                  <p class="game-times text-truncate">Paid: {{game.paymentAt | amLocal | amCalendar}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+      </div>
+
+      <!-- Loading indicator -->
+      <ion-item *ngIf="isLoading" class="game-cell loading-item">
+        <ion-spinner name="ios"></ion-spinner>
+      </ion-item>
+
+    </ion-list>
+  </ng-container>
+</ion-content>

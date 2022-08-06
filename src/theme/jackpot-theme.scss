@@ -1,0 +1,91 @@
+/**
+ * Default global Jackpot Music Game style theme
+ * If something is changed in this file, all components will be affected
+ */
+
+@import url("https://fonts.googleapis.com/css?family=Ubuntu");
+@import "./jackpot-theme/jmg_colors";
+@import "./jackpot-theme/jmg_form";
+@import "./jackpot-theme/jmg_divs";
+
+/** Global style **/
+:root {
+  --ion-border-col: var(--ion-color-dark);
+  --ion-text-color: var(--ion-color-gray);
+  --ion-box-shadow-color: var(--ion-color-dark);
+  --ion-toolbar-background: var(--ion-color-dark);
+  --ion-toolbar-border-color: var(--ion-color-dark);
+  --ion-item-background: rgb(var(--ion-color-dark-rgb), 0);
+  --ion-item-background-focused: rgb(var(--ion-color-dark-rgb), 0);
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ion-content {
+  --background: radial-gradient(circle at top, #444 0%, #000 35%);
+}
+
+ion-header,
+ion-toolbar {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+p,
+h1,
+h2,
+h3,
+h4 {
+  color: var(--ion-color-light);
+  font-family: Helvetica, sans-serif;
+}
+
+.alert {
+  --ion-background-color: var(--ion-color-dark);
+}
+
+.jackpot-footer {
+  font-family: "Ubuntu", sans-serif;
+
+  .promo-link {
+    height: 45px;
+    line-height: 22px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 11.85px 0 17.15px;
+    font-size: 15px !important;
+    background-color: var(--ion-color-secondary);
+
+    .toolbar-background {
+      background-color: var(--ion-color-secondary);
+    }
+
+    ion-icon {
+      margin-bottom: -4px;
+      margin-right: 12px;
+      font-size: 20px !important;
+    }
+  }
+
+  .social-links {
+    height: 45px;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: center !important;
+
+    ion-icon {
+      margin-left: 36px;
+      margin-right: 36px;
+      color: var(--ion-color-light);
+    }
+  }
+}
+
+.sc-ion-picker-ios {
+  color: var(--ion-color-dark-contrast) !important;
+  background: rgba(var(--ion-color-dark-rgb), 0.8) !important;
+  border: 0 !important;
+}

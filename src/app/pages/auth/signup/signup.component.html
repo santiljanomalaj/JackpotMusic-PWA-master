@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Create Account
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="logo">
+    <img src="" alt="Jackpot Music Game Logo" />
+  </div>
+  <p class="tagline">The Musical Game That's Sweeping The Nation!</p>
+
+  <form [formGroup]="form" (ngSubmit)="register(form)" novalidate class="primary-form">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input type="text" formControlName="displayName" placeholder="Enter your name">
+        </ion-input>
+      </ion-item>
+      <control-errors [control]="form.controls.displayName"></control-errors>
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" formControlName="email" placeholder="Enter your email">
+        </ion-input>
+      </ion-item>
+      <control-errors [control]="form.controls.email"></control-errors>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password" formControlName="password" required placeholder="Enter a password">
+        </ion-input>
+      </ion-item>
+      <control-errors [control]="form.controls.password"></control-errors>
+    </ion-list>
+    <div class="ion-padding ion-align-items-center">
+      <ion-button mode="ios" expand="block" type="submit" color="secondary" [disabled]="!form.valid || isSubmitting">
+        Create Account
+        <ion-spinner *ngIf="isSubmitting" name="lines-small" color="light" class="ion-margin-start"></ion-spinner>
+      </ion-button>
+      <ion-button mode="ios" expand="block" fill="clear" routerLink="/auth/login">
+        Already have an account? Login Instead.
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

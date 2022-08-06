@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Sign In
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="authentication">
+  <form [formGroup]="form" (ngSubmit)="login()" novalidate class="primary-form">
+    <ion-list lines="none">
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" formControlName="email" required placeholder="Enter your email address"></ion-input>
+      </ion-item>
+      <control-errors [control]="form.controls.email"></control-errors>
+      <ion-item>
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input type="password" formControlName="password" required placeholder="Enter your password"></ion-input>
+      </ion-item>
+      <control-errors [control]="form.controls.password"></control-errors>
+    </ion-list>
+    <div class="ion-padding ion-text-center">
+      <ion-button mode="ios" expand="block" type="submit" [disabled]="!form.valid || isSubmitting" color="secondary">
+        Sign In
+        <ion-spinner *ngIf="isSubmitting" name="lines-small" color="light" class="ion-margin-start"></ion-spinner>
+      </ion-button>
+      <ion-button mode="ios" expand="block" type="button" fill="clear" (click)="goToForgotPassword()">
+        Forgot your password?
+      </ion-button>
+    </div>
+  </form>
+</ion-content>
+
+<ion-footer class="jackpot-footer">
+  <ion-toolbar mode="ios">
+    <ion-item lines="none" class="social-links">
+      <ion-label>
+        <ion-icon name="logo-youtube"></ion-icon>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
+      </ion-label>
+    </ion-item>
+  </ion-toolbar>
+  <ion-toolbar class="promo-link-toolbar">
+    <div class="promo-link">
+      <ion-icon name="videocam"></ion-icon>
+      Watch our promo video
+    </div>
+  </ion-toolbar>
+</ion-footer>

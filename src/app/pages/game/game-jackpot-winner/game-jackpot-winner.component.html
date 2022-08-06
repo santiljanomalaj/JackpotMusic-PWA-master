@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-title>
+      Jackpot Winner
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="none" class="ion-no-margin">
+    <ion-list-header class="jackpot-header" text-wrap>
+      <img src="assets/images/jackpot-logo-horizontal.png" alt="Jackpot Music Game Logo"/>
+    </ion-list-header>
+
+    <form novalidate [formGroup]="form" (ngSubmit)="submit()" class="primary-form">
+      <ion-item>
+        <ion-label position="stacked">First Name</ion-label>
+        <ion-input formControlName="firstName" type="text" placeholder="Your first name"></ion-input>
+      </ion-item>
+      <p class="help-block" *ngIf="!form.controls['firstName'].valid && submitAttempt">Required</p>
+
+      <ion-item>
+        <ion-label position="stacked">Phone Number</ion-label>
+        <ion-input formControlName="phone" type="text" placeholder="Your phone number"></ion-input>
+      </ion-item>
+      <p class="help-block" *ngIf="!form.controls['phone'].valid && submitAttempt">Required</p>
+
+      <ion-item class="age-checkbox">
+        <ion-checkbox [(ngModel)]="isOfAge" [ngModelOptions]="{standalone:true}"></ion-checkbox>
+        <ion-label>I am 18 years of age.</ion-label>
+      </ion-item>
+
+      <div class="ion-padding">
+        <ion-button expand="block" color="secondary" [disabled]="isLoading || !form.valid || !isOfAge" type="submit">
+          Send Info
+          <ion-spinner *ngIf="isLoading" name="lines-small" color="white" class="ion-margin-start"></ion-spinner>
+        </ion-button>
+      </div>
+    </form>
+
+  </ion-list>
+</ion-content>

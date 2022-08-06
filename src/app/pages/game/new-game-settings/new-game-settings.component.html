@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Game {{ currentGameNumber }} of {{ totalGameNumber }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" novalidate class="primary-form">
+    <ion-list lines="none">
+      <ion-item class="form-group">
+        <ion-label position="stacked">
+          Game {{ currentGameNumber }} Music Category
+        </ion-label>
+        <ion-select formControlName="category" [interfaceOptions]="selectOptions" interface="action-sheet" required>
+          <ion-select-option *ngFor="let category of categories | async" [value]="category">
+            {{ category }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <control-errors [control]="form.controls.category"></control-errors>
+
+      <div *ngFor="let roundKey of roundsKeys">
+        <ion-item class="form-group">
+          <ion-label position="stacked">Round {{ roundKey }} Prize</ion-label>
+          <ion-select
+            required
+            interface="action-sheet"
+            [interfaceOptions]="selectOptions"
+            (ionChange)="otherPrizeDialog(roundKey)"
+            formControlName="{{ roundPrizeMapper[roundKey] }}"
+          >
+            <ion-select-option *ngFor="let prize of defaultPrizes" [value]="prize">
+              {{ prize }} coupon
+            </ion-select-option>
+            <ion-select-option [value]="'Other'">
+              {{ otherOptionValue }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <control-errors [control]="form.controls[roundPrizeMapper[roundKey]]"></control-errors>
+      </div>
+    </ion-list>
+    <div class="ion-padding ion-text-center">
+      <ion-button
+        type="submit"
+        expand="block"
+        color="secondary"
+        (click)="goToNextGame(form)"
+        [disabled]="!form.valid || isSubmitting"
+        *ngIf="currentGameNumber < totalGameNumber; else finalGame"
+      >
+        Next Game
+        <ion-spinner *ngIf="isSubmitting" name="lines-small" color="light" class="ion-margin-start"></ion-spinner>
+      </ion-button>
+      <ng-template #finalGame>
+        <ion-button
+          mode="ios"
+          expand="block"
+          type="submit"
+          [disabled]="!form.valid || isSubmitting"
+          color="secondary"
+          (click)="submit(form)"
+        >
+          Submit All
+          <ion-spinner *ngIf="isSubmitting" name="lines-small" color="light" class="ion-margin-start"></ion-spinner>
+        </ion-button>
+      </ng-template>
+    </div>
+  </form>
+</ion-content>

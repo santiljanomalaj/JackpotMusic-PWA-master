@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "853687662364",
+    "firebase_url": "https://jackpotmusicgame-50e39.firebaseio.com",
+    "project_id": "jackpotmusicgame-50e39",
+    "storage_bucket": "jackpotmusicgame-50e39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853687662364:android:7a348ad0dd91df52a5acd9",
+        "android_client_info": {
+          "package_name": "com.jackpotmusic.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "853687662364-8tt628sn2lq338r2qmkpqcjsb4hsqttt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU1q115Gl9Qp3vy0SLNTvp_bszbO6G4c0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "853687662364-8tt628sn2lq338r2qmkpqcjsb4hsqttt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "853687662364-gkk5sok99311eiadgulfr1jut130avc4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jackpotmusic.game"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

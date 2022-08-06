@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>New location</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="page-header">
+    <h2>Where Are You?</h2>
+    <p>Enter the name and address of the location you'll be running the Jackpot game.</p>
+  </div>
+
+  <ion-list>
+    <location-form [submitFunction]="submit"></location-form>
+  </ion-list>
+
+</ion-content>

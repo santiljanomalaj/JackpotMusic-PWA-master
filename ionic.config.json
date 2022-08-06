@@ -1,0 +1,7 @@
+{
+  "name": "jackpot-music-games-pwa",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

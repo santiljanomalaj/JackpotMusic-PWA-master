@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item routerLink="/user/payment-method">
+      <ion-label>Payment Method</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="!authService.currentUser?._location" routerLink="/user/new-location">
+      <ion-label>New Location</ion-label>
+    </ion-item>
+
+    <ion-item *ngIf="authService.currentUser?._location" routerLink="/user/edit-location">
+      <ion-label>Edit Location</ion-label>
+    </ion-item>
+
+    <ion-item routerLink="/user/change-email">
+      <ion-label>Change Email</ion-label>
+    </ion-item>
+
+    <ion-item routerLink="/user/change-password">
+      <ion-label>Change Password</ion-label>
+    </ion-item>
+
+    <ion-item routerLink="/user/legal">
+      <ion-label>Legal</ion-label>
+    </ion-item>
+
+    <ion-item (click)="logout()">
+      <ion-label>Log Out</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
